@@ -1,0 +1,223 @@
+.contact {
+  padding: 80px 0;
+  background: transparent;
+  color: #1a2540;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* slideshow */
+.contact-slideshow-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  align-self: center;
+  width: 100%;
+}
+
+.contact-slideshow {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: rgba(102, 126, 234, 0.08);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.18);
+}
+
+.slideshow-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-img {
+  min-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.slide-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.slide-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(102, 126, 234, 0.35);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.slide-dot.active {
+  background: #667eea;
+  transform: scale(1.3);
+}
+
+.appointment-form {
+  background: linear-gradient(145deg, #1a1f2e 0%, #242838 100%);
+  backdrop-filter: blur(14px);
+  padding: 28px 44px;
+  border-radius: 46px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  scroll-margin-top: 130px;
+}
+
+.appointment-intro {
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  font-size: 1.18rem;
+  line-height: 1.45;
+  margin-bottom: 22px;
+}
+
+.appointment-intro strong {
+  color: #ffffff;
+}
+
+.appointment-form h3 {
+  color: #ffffff;
+  font-size: 2.6rem;
+  margin-bottom: 26px;
+  text-align: center;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-decoration-thickness: 2px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0;
+  font-size: 1rem;
+  transition: border-color 0.25s ease;
+  background: transparent;
+  color: #f0f0f0;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group select {
+  color: rgba(255, 255, 255, 0.85);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #ffffff 50%), linear-gradient(135deg, #ffffff 50%, transparent 50%);
+  background-position: calc(100% - 10px) calc(50% - 3px), calc(100% - 4px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 24px;
+}
+
+.form-group select option {
+  color: #212630;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-bottom-color: #ffffff;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.submit-btn {
+  background: #e12166;
+  color: white;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: none;
+  width: fit-content;
+  align-self: center;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  background: #f23a78;
+}
+
+.submit-btn:disabled {
+  background: #8c8c9e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 60px 0;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact-slideshow {
+    aspect-ratio: 3 / 2;
+    border-radius: 14px;
+  }
+
+  .appointment-form {
+    padding: 24px 18px;
+    border-radius: 28px;
+    scroll-margin-top: 150px;
+  }
+
+  .appointment-intro {
+    font-size: 1rem;
+  }
+
+  .appointment-form h3 {
+    font-size: 2rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+        font-size: 0.95rem;
+      }
+
+      .submit-btn {
+        font-size: 0.95rem;
+    justify-content: center;
+  }
+}

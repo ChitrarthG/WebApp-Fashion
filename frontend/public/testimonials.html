@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - Vayu Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header Styles */
+        .header {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            color: #0d2d52;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .logo p {
+            color: #5c6e85;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #0e2f5a;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #d20063;
+            background: rgba(210, 0, 99, 0.08);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #0e2f5a;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: #666;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #0d2d52;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #d20063;
+            margin: 10px auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid #d20063;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0d2d52;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-service {
+            display: inline-block;
+            background: #d20063;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: #032e64;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-section {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .nav-links a {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🏥</span>
+                <div>
+                    <h1>Vayu Clinic</h1>
+                    <p>Care beyond Cure</p>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="#about">About us</a>
+                <a href="#services">Services</a>
+                <a href="#media">Media</a>
+                <a href="#blog">Blog</a>
+                <a href="#testimonials" class="active">Testimonials</a>
+                <a href="#contact">Contact us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="/">Home</a> <span>»</span> <span>Testimonials</span>
+            </div>
+
+            <!-- Testimonials Section -->
+            <section class="testimonials-section">
+                <h1 class="section-title">Testimonials</h1>
+
+                <div class="testimonials-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Arav Rachakonda</h3>
+                        <p class="testimonial-text">"Painless dental clinic in Kondapur. Very good reception. Doctor is good and patiently explained the issue. Do's and don'ts well explained."</p>
+                        <span class="testimonial-service">Dental Care</span>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Chandra Shekar</h3>
+                        <p class="testimonial-text">"Dr.Sai Kiran Thipparthi garu is the best physician and my go to doctor for any illness. Thank you for your selfless service."</p>
+                        <span class="testimonial-service">General Medicine</span>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Srikanth Raj Malekar</h3>
+                        <p class="testimonial-text">"Doctors are very kind and supportive. They listen to patients carefully, give more time, and provide clear understanding of the issue."</p>
+                        <span class="testimonial-service">Family Care</span>
+                    </div>
+
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Lalith Mohan Tummalapalli</h3>
+                        <p class="testimonial-text">"Excellent service and professional staff. Highly recommended for quality healthcare services."</p>
+                        <span class="testimonial-service">General Care</span>
+                    </div>
+
+                    <!-- Testimonial 5 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Mahaboob Imran</h3>
+                        <p class="testimonial-text">"Dr. Rami Reddy is Very friendly Doctor listens with Patience all your Problems"</p>
+                        <span class="testimonial-service">General Medicine</span>
+                    </div>
+
+                    <!-- Testimonial 6 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Siddartha Chandra</h3>
+                        <p class="testimonial-text">"Dr Sai kiran is a very good doctor"</p>
+                        <span class="testimonial-service">General Medicine</span>
+                    </div>
+
+                    <!-- Testimonial 7 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">MD Ahmed</h3>
+                        <p class="testimonial-text">"Dr.Rami reddy sir.He is pediatrition. He is shot out all type of diseases. He take very well.Good consultation."</p>
+                        <span class="testimonial-service">Pediatrics</span>
+                    </div>
+
+                    <!-- Testimonial 8 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Narshi Ma</h3>
+                        <p class="testimonial-text">"Dr. Ganta rami reddy. Sir My son was suffering from cold and cough. Dr is good experience and good treatment. Early recovered my son. Thank you sir."</p>
+                        <span class="testimonial-service">Pediatrics</span>
+                    </div>
+
+                    <!-- Testimonial 9 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Chalamala Anilkumar</h3>
+                        <p class="testimonial-text">"I recommend this doctor as sai Kiran sir.cardiology and genaral physician. We went immediately near by neo asion clinic Kondapur. It as wonderful experience in practice. The clinic itself is modern, clean and equipped with the new technology. Thank you 🙏 . Staff was very kind and helpful"</p>
+                        <span class="testimonial-service">Cardiology</span>
+                    </div>
+
+                    <!-- Testimonial 10 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">R.Sharan Teja</h3>
+                        <p class="testimonial-text">"Caring and very professional and hospitality is good"</p>
+                        <span class="testimonial-service">General Care</span>
+                    </div>
+
+                    <!-- Testimonial 11 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Ravichandar Uppula</h3>
+                        <p class="testimonial-text">"Iam visted in neo asian clinic.. Dr sai kiran sir cardiology and Genaral medicine. He is good experience.. In practice. Frdly nature.."</p>
+                        <span class="testimonial-service">Cardiology</span>
+                    </div>
+
+                    <!-- Testimonial 12 -->
+                    <div class="testimonial-card">
+                        <h3 class="testimonial-name">Tejaswini Dharani</h3>
+                        <p class="testimonial-text">"Consulted Dr. Ganta Ram Reddy sir today. Doctor has explained very well about the baby's condition and prescribed medication"</p>
+                        <span class="testimonial-service">Pediatrics</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Vayu Clinic</h3>
+                <p>Your trusted healthcare partner in Kondapur, Hyderabad. Providing comprehensive medical services with experienced doctors and modern facilities.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/people/Neo-Asian-Clinics/61564427723632/" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/neo_asian_clinics/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://api.whatsapp.com/send?phone=917754929443&text=hello&lang=en" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.youtube.com/@NeoAsianClinics" target="_blank" rel="noopener noreferrer" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#testimonials">Patient Reviews</a></li>
+                    <li><a href="#appointment">Book Appointment</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li>Dental Care</li>
+                    <li>General Medicine</li>
+                    <li>Pediatrics</li>
+                    <li>Cardiology</li>
+                    <li>Orthopedics</li>
+                    <li>Gynecology</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Kondapur, Hyderabad, Telangana</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+917754929443" style="color: #ecf0f1;">+91 7754929443</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:0407754929443" style="color: #ecf0f1;">040-7754929443</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:chitrarthgaurav@gmail.com" style="color: #ecf0f1;">chitrarthgaurav@gmail.com</a></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Vayu Clinic. All Rights Reserved - Designed with ❤️ for better healthcare</p>
+        </div>
+    </footer>
+</body>
+</html>
