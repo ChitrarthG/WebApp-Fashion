@@ -1,0 +1,10 @@
+# Temporary deployment files
+database/init.cloud.sql
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
