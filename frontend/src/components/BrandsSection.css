@@ -1,0 +1,124 @@
+/* ─────────────────────────────────────────────
+   BrandsSection – "Brands You Love" marquee
+───────────────────────────────────────────── */
+
+.brands-section {
+  background: #fff;
+  padding: 48px 0 36px;
+  overflow: hidden;
+}
+
+.brands-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 0 24px;
+}
+
+.brands-header .section-number {
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.brands-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.brands-sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── Marquee Track ── */
+.brands-track-wrapper {
+  position: relative;
+  overflow: hidden;
+  /* Fade out edges */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.brands-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  animation: brands-scroll 32s linear infinite;
+}
+
+.brands-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes brands-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Individual Brand Tile ── */
+.brand-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  min-width: 160px;
+  padding: 0 28px;
+  border-right: 1px solid #f0f0f0;
+  cursor: default;
+  transition: background 0.18s;
+  flex-shrink: 0;
+}
+
+.brand-tile:hover {
+  background: #fafafa;
+}
+
+.brand-logo-img {
+  max-height: 30px;
+  max-width: 100px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.65;
+  transition: filter 0.2s, opacity 0.2s;
+}
+
+.brand-tile:hover .brand-logo-img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.brand-logo-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.brand-tile:hover .brand-logo-text {
+  color: #111;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .brands-title { font-size: 20px; }
+  .brand-tile { min-width: 120px; padding: 0 18px; }
+}

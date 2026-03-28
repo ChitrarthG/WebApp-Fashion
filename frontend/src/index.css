@@ -6,14 +6,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(210, 210, 222, 0.28) 0px,
-    rgba(210, 210, 222, 0) 55px,
-    rgba(210, 210, 222, 0.28) 110px
-  );
+  background-image: linear-gradient(180deg, #ffffff 0%, #fdfefe 45%, #fbfcfd 100%);
   background-attachment: fixed;
   min-height: 100vh;
+  color: #1f2d40;
 }
 
 code {
