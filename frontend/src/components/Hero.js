@@ -1,92 +1,129 @@
-import React from 'react';
-import './Hero.css';
+import React, { useState, useEffect, useCallback } from "react";
+import "./Hero.css";
 
-const services = [
-  { icon: '🩺', label: 'OP\nConsultation' },
-  { icon: '🌿', label: 'Wellness\nClinic' },
-  { icon: '💉', label: 'Vaccination\nCenter' },
-  { icon: '🏥', label: 'Day Care\nCenter' },
-  { icon: '🦷', label: 'Dental\nServices' },
+const slides = [
+  {
+    id: 1,
+    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80&fit=crop",
+    title: "New In.",
+    cta: "SHOP NOW",
+    ctaHref: "#new-arrivals",
+  },
+  {
+    id: 2,
+    image: "https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=1600&q=80&fit=crop",
+    title: "Men's Edit.",
+    cta: "SHOP NOW",
+    ctaHref: "#men",
+  },
+  {
+    id: 3,
+    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80&fit=crop",
+    title: "Up to 50% Off",
+    cta: "SHOP SALE",
+    ctaHref: "#sale",
+  },
+  {
+    id: 4,
+    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=1600&q=80&fit=crop",
+    title: "Kids Collection.",
+    cta: "SHOP NOW",
+    ctaHref: "#kids",
+  },
+  {
+    id: 5,
+    image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&q=80&fit=crop",
+    title: "Home & Living.",
+    cta: "EXPLORE NOW",
+    ctaHref: "#home-living",
+  },
+  {
+    id: 6,
+    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1600&q=80&fit=crop",
+    title: "Brands We Love.",
+    cta: "DISCOVER",
+    ctaHref: "#brands",
+  },
 ];
 
-const mvv = [
-  {
-    icon: '🎯',
-    title: 'MISSION',
-    text: 'Providing comprehensive, patient-centered care through innovative and compassionate services',
-  },
-  {
-    icon: '✨',
-    title: 'VISION',
-    text: 'Empowering patients with comprehensive, personalized care for a lifetime from birth till old age',
-  },
-  {
-    icon: '💎',
-    title: 'VALUES',
-    text: 'Compassion, Excellence, Patient-Centered, Teamwork, Innovation, Integrity, Empathy, and Kindness.',
-  },
-];
+const Hero = ({ sectionNumber = "01" }) => {
+  const [current, setCurrent] = useState(0);
+  const [transitioning, setTransitioning] = useState(false);
 
-const Hero = () => {
+  const goTo = useCallback((idx) => {
+    if (transitioning) return;
+    setTransitioning(true);
+    setCurrent(idx);
+    setTimeout(() => setTransitioning(false), 600);
+  }, [transitioning]);
+
+  const prev = () => goTo((current - 1 + slides.length) % slides.length);
+  const next = useCallback(() => goTo((current + 1) % slides.length), [current, goTo]);
+
+  useEffect(() => {
+    const timer = setInterval(next, 4500);
+    return () => clearInterval(timer);
+  }, [next]);
+
   return (
-    <section className="hero" id="home">
-
-      {/* Services strip */}
-      <div className="hero-services-strip">
-        <div className="hero-services-track">
-          {services.map((s, i) => (
-            <React.Fragment key={i}>
-              <div className="hero-service-item">
-                <div className="hero-service-circle">
-                  <span className="hero-service-icon">{s.icon}</span>
-                </div>
-                <p className="hero-service-label">{s.label}</p>
-              </div>
-              {i < services.length - 1 && (
-                <div className="hero-service-connector">
-                  <span className="connector-dot" />
-                  <span className="connector-line" />
-                  <span className="connector-dot" />
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-
-      {/* Main heading block */}
-      <div className="hero-main">
-        <span className="hero-welcome-badge">Welcome To</span>
-        <h1 className="hero-title">Vayu Clinic</h1>
-        <p className="hero-tagline">Your Healthcare Partner in Kondapur</p>
-        <p className="hero-description">
-          Vayu Clinic is a trusted multi-specialty clinic with pharmacy, labs and experienced doctors.
-          Our board-certified specialists in <a href="#services" className="hero-desc-link">pediatrics</a>,{' '}
-          <a href="#services" className="hero-desc-link">general medicine</a>,{' '}
-          <a href="#services" className="hero-desc-link">dental</a> and{' '}
-          <a href="#services" className="hero-desc-link">diagnostics</a> work together to provide comprehensive
-          and coordinated care to patients of all ages — right here in Kondapur.
-        </p>
-        <div className="hero-buttons">
-          <a href="#appointment" className="btn-primary">Book Appointment</a>
-          <a href="tel:+917754929443" className="btn-secondary">Call Now</a>
-        </div>
-      </div>
-
-      {/* Mission / Vision / Values */}
-      <div className="hero-mvv">
-        {mvv.map((item, i) => (
-          <div className="hero-mvv-item" key={i}>
-            <div className="hero-mvv-circle">
-              <span className="hero-mvv-icon">{item.icon}</span>
+    <>
+      <section className="hero-section" title={sectionNumber}>
+        <div className="hero-carousel">
+        {/* Slides */}
+        {slides.map((slide, i) => (
+          <div
+            key={slide.id}
+            className={`hero-slide${i === current ? " hero-slide--active" : ""}`}
+            aria-hidden={i !== current}
+          >
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="hero-slide-img"
+              draggable="false"
+            />
+            {/* Text overlay */}
+            <div className="hero-overlay">
+              <h1 className="hero-overlay-title">{slide.title}</h1>
+              <a href={slide.ctaHref} className="hero-overlay-cta">{slide.cta}</a>
             </div>
-            <h3 className="hero-mvv-title">{item.title}</h3>
-            <p className="hero-mvv-text">{item.text}</p>
           </div>
         ))}
-      </div>
 
-    </section>
+        {/* Prev / Next arrows */}
+        <button
+          className="hero-arrow hero-arrow--prev"
+          onClick={prev}
+          aria-label="Previous slide"
+        >
+          &#8249;
+        </button>
+        <button
+          className="hero-arrow hero-arrow--next"
+          onClick={next}
+          aria-label="Next slide"
+        >
+          &#8250;
+        </button>
+
+
+        </div>
+      </section>
+
+      {/* Dot indicators on global background */}
+      <div className="hero-dots" role="tablist" aria-label="Slide indicators">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            role="tab"
+            aria-selected={i === current}
+            className={`hero-dot${i === current ? " hero-dot--active" : ""}`}
+            onClick={() => goTo(i)}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

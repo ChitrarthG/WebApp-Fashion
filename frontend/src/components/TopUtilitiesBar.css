@@ -1,0 +1,285 @@
+.top-utility-wrapper {
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.utilities-bar {
+  background: #050505;
+  color: #fff;
+  border-bottom: 1px solid #101010;
+  min-height: 32px;
+}
+
+.utilities-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
+}
+
+.utility-links-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.utility-links-left::-webkit-scrollbar {
+  display: none;
+}
+
+.utility-link {
+  border: none;
+  background: transparent;
+  color: #f1f1f1;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+  transform: none;
+}
+
+.utility-link:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.pipe {
+  color: #e5e5e5;
+  margin: 0 8px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.utility-right-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-right: 10px;
+}
+
+.entire-collection {
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transform: scale(0.62);
+  transform-origin: right center;
+}
+
+.store-toggle {
+  width: 34px;
+  height: 14px;
+  border: none;
+  border-radius: 999px;
+  background: #9c9c9c;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease;
+}
+
+.store-toggle-knob {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.store-toggle.active {
+  background: #8d8d8d;
+}
+
+.store-toggle.active .store-toggle-knob {
+  transform: translateX(18px);
+}
+
+.store-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transform: scale(0.62);
+  transform-origin: left center;
+}
+
+.store-bag {
+  font-size: 12px;
+}
+
+.announcement-bar {
+  background: #dddddd;
+  color: #333;
+  font-size: 11px;
+  line-height: 1;
+  min-height: 26px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.announcement-inner {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.announcement-marquee {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  display: block;
+}
+
+.announcement-copy {
+  color: #4d4d4d;
+  white-space: nowrap;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  display: inline-block;
+  padding-left: 100%;
+  animation: announcement-marquee 36s linear infinite;
+}
+
+@keyframes announcement-marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.countdown-box {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  background: #f2f2f2;
+  border-left: 1px solid #d2d2d2;
+}
+
+.countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #111;
+  white-space: nowrap;
+}
+
+@media (max-width: 1440px) {
+  .entire-collection,
+  .store-mode {
+    font-size: 10px;
+  }
+
+  .countdown {
+    font-size: 10px;
+    gap: 10px;
+  }
+
+  .announcement-bar {
+    font-size: 10px;
+    min-height: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .utilities-container {
+    min-height: 30px;
+    padding: 0 10px;
+  }
+
+  .utility-link {
+    font-size: 9px;
+  }
+
+  .pipe {
+    font-size: 9px;
+    margin: 0 6px;
+  }
+
+  .entire-collection {
+    display: none;
+  }
+
+  .store-mode {
+    font-size: 10px;
+  }
+
+  .countdown {
+    font-size: 9px;
+    gap: 8px;
+  }
+
+  .announcement-bar {
+    font-size: 9px;
+    min-height: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .utilities-container {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .utility-links-left {
+    width: 100%;
+  }
+
+  .utility-right-controls {
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .countdown {
+    font-size: 10px;
+    gap: 8px;
+  }
+
+  .announcement-inner {
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 6px;
+  }
+
+  .announcement-copy {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 11px;
+    animation-duration: 28s;
+  }
+
+  .announcement-bar {
+    font-size: 9px;
+    min-height: 20px;
+  }
+}
