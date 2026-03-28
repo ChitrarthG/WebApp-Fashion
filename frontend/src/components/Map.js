@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import apiBaseUrl from '../config/api';
 import './Map.css';
 
 const Map = () => {
@@ -7,7 +8,7 @@ const Map = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = apiBaseUrl;
   const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const MAPS_ENABLED = process.env.REACT_APP_MAPS_ENABLED === 'true';
 

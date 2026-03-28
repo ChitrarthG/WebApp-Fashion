@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-    "start:prod": "node src/server.js"
+    "start:prod": "node src/server.js",
+    "db:init": "node scripts/initRenderDb.js"
   },
   "keywords": [],
   "author": "",
