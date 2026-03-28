@@ -1,47 +1,133 @@
-﻿.footer { background: transparent; color: #4f5f73; }
+.footer {
+  background: #2c3e50;
+  color: white;
+  padding: 60px 0 20px;
+}
 
-.footer-top { padding: 56px 0 40px; }
-.footer-grid {
+.footer-content {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
-.footer-logo { font-size: 1.5rem; font-weight: 800; color: #132235; margin-bottom: 12px; letter-spacing: -0.02em; }
-.footer-logo span { color: #0ea4a9; }
-.footer-brand p { font-size: 0.88rem; line-height: 1.6; opacity: 0.7; margin-bottom: 16px; }
-
-.footer-social { display: flex; gap: 10px; }
-.social-icon { font-size: 1.2rem; opacity: 0.6; transition: opacity 0.2s; text-decoration: none; }
-.social-icon:hover { opacity: 1; }
-
-.footer-links-col h4 { font-size: 0.88rem; font-weight: 700; color: #1d3047; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
-.footer-links-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-links-col ul li a { color: #627488; text-decoration: none; font-size: 0.88rem; transition: color 0.15s; }
-.footer-links-col ul li a:hover { color: #0ea4a9; }
-
-.footer-contact-info { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-.footer-contact-info p { font-size: 0.86rem; color: #6b7d91; }
-.footer-contact-info a { color: #4f5f73; text-decoration: none; transition: color 0.15s; }
-.footer-contact-info a:hover { color: #0ea4a9; }
-
-.footer-payment h5 { font-size: 0.78rem; color: #6b7d91; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
-.payment-icons { display: flex; gap: 8px; font-size: 1.3rem; }
-
-.footer-bottom { border-top: 1px solid #dde4ec; padding: 16px 0; }
-.footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-.footer-bottom p { font-size: 0.82rem; color: #6b7d91; }
-.footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
-.footer-legal a { font-size: 0.82rem; color: #6b7d91; text-decoration: none; transition: color 0.15s; }
-.footer-legal a:hover { color: #0ea4a9; }
-.footer-legal .admin-link { color: #5d6f84; }
-
-@media (max-width: 1024px) {
-  .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
-  .footer-brand { grid-column: 1 / -1; }
+.footer-section h3 {
+  color: #667eea;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
-@media (max-width: 600px) {
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-  .footer-brand { grid-column: 1 / -1; }
-  .footer-bottom-inner { flex-direction: column; text-align: center; }
+
+.footer-section p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #bdc3c7;
+}
+
+.footer-contact p {
+  margin: 5px 0;
+  color: #bdc3c7;
+}
+
+.footer-contact a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  color: #764ba2;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #667eea;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-link {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-link:hover {
+  color: #667eea;
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #25d366;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  background: #128c7e;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  border-top: 1px solid #34495e;
+  padding-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-bottom-content p {
+  margin: 0;
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
 }

@@ -106,7 +106,7 @@ ReactAppWS/
 
 ### **Clinic Information**
 - 📍 **Location**: Kondapur, Hyderabad, Telangana
-- 📞 **Contact**: +91 775 492 9443
+- 📞 **Contact**: +91 79952 77737
 - 🕒 **Timings**: Mon-Sat: 8AM-9:30PM, Sun: 8AM-9PM
 
 ### **Patient Features**
@@ -189,8 +189,7 @@ npm dev      # Development with nodemon
 ## 📞 Contact & Support
 
 **Clinic Contact**:
-- Phone: +91 775 492 9443
-- Email: chitrarthgaurav@gmail.com
+- Phone: +91 79952 77737
 - Location: Kondapur, Hyderabad
 
 **Technical Support**:

@@ -1,126 +1,127 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./ChatbotWidget.css";
-import apiBaseUrl from "../config/api";
+import React from 'react';
+import './ChatbotWidget.css';
+import apiBaseUrl from '../config/api';
 
-const INITIAL_SESSION_ID = "chat_" + Math.random().toString(36).slice(2);
+const SESSION_STORAGE_KEY = 'bookingChatSessionId';
 
-const ChatbotWidget = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [sessionId] = useState(INITIAL_SESSION_ID);
-  const messagesEndRef = useRef(null);
+function ChatbotWidget() {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [input, setInput] = React.useState('');
+  const [messages, setMessages] = React.useState([]);
+  const [sessionId, setSessionId] = React.useState(() => window.localStorage.getItem(SESSION_STORAGE_KEY) || '');
+  const [sending, setSending] = React.useState(false);
 
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  const sendMessage = React.useCallback(async (text, { silentUserMessage = false } = {}) => {
+    const trimmed = text.trim();
+    if (!trimmed || sending) {
+      return;
     }
-  }, [messages]);
 
-  const openChat = async () => {
-    setIsOpen(true);
-    if (messages.length === 0) {
-      await sendMessage("__start__", true);
+    if (!silentUserMessage) {
+      setMessages((prev) => [...prev, { role: 'user', text: trimmed }]);
     }
-  };
 
-  const sendMessage = async (text, silent = false) => {
-    const msg = text || input.trim();
-    if (!msg) return;
-    if (!silent) {
-      setMessages(prev => [...prev, { role: "user", text: msg }]);
-    }
-    setInput("");
-    setLoading(true);
+    setSending(true);
     try {
-      const res = await fetch(`${apiBaseUrl}/chatbot/message`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: msg, sessionId }),
+      const response = await fetch(`${apiBaseUrl}/chatbot/message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: sessionId || undefined,
+          message: trimmed,
+        }),
       });
-      const data = await res.json();
-      setMessages(prev => [...prev, { role: "bot", text: data.reply }]);
-    } catch {
-      setMessages(prev => [...prev, { role: "bot", text: "Sorry, I am having trouble connecting right now. Please try again later." }]);
+
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.error || 'Could not process chat request.');
+      }
+
+      if (payload.sessionId) {
+        setSessionId(payload.sessionId);
+        window.localStorage.setItem(SESSION_STORAGE_KEY, payload.sessionId);
+      }
+
+      setMessages((prev) => [...prev, { role: 'bot', text: payload.reply || 'Sorry, I did not understand that.' }]);
+    } catch (error) {
+      setMessages((prev) => [...prev, {
+        role: 'bot',
+        text: error.message || 'Could not connect to booking assistant. Please try again.',
+      }]);
     } finally {
-      setLoading(false);
+      setSending(false);
     }
+  }, [sending, sessionId]);
+
+  React.useEffect(() => {
+    if (!isOpen || messages.length > 0 || sending) {
+      return;
+    }
+
+    sendMessage('__start__', { silentUserMessage: true });
+  }, [isOpen, messages.length, sendMessage, sending]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const messageToSend = input.trim();
+    if (!messageToSend) {
+      return;
+    }
+
+    setInput('');
+    await sendMessage(messageToSend);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
+  const toggleChat = () => {
+    setIsOpen((prev) => !prev);
   };
 
   return (
-    <div className="chatbot-widget">
-      {/* Chat window */}
+    <div className="chatbot-widget" aria-live="polite">
       {isOpen && (
-        <div className="chat-window" role="dialog" aria-label="Vayu Fashion Shopping Assistant">
-          <div className="chat-header">
-            <div className="chat-header-info">
-              <div className="chat-avatar"></div>
-              <div>
-                <div className="chat-title">Vayu Fashion Assistant</div>
-                <div className="chat-status">Online</div>
-              </div>
-            </div>
-            <button className="chat-close" onClick={() => setIsOpen(false)} aria-label="Close chat"></button>
-          </div>
+        <section className="chatbot-panel" aria-label="Appointment booking assistant">
+          <header className="chatbot-header">
+            <h3>Book Appointment</h3>
+            <button type="button" className="chatbot-close" onClick={toggleChat} aria-label="Close chat">
+              x
+            </button>
+          </header>
 
-          <div className="chat-messages">
-            {messages.map((msg, i) => (
-              <div key={i} className={`chat-msg ${msg.role}`}>
-                {msg.role === "bot" && <div className="bot-avatar"></div>}
-                <div className="msg-bubble">{msg.text}</div>
+          <div className="chatbot-body">
+            {messages.length === 0 && <p className="chatbot-placeholder">Starting assistant...</p>}
+            {messages.map((message, index) => (
+              <div key={`${message.role}-${index}`} className={`chatbot-message ${message.role}`}>
+                {message.text}
               </div>
             ))}
-            {loading && (
-              <div className="chat-msg bot">
-                <div className="bot-avatar"></div>
-                <div className="msg-bubble typing">
-                  <span /><span /><span />
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
           </div>
 
-          <div className="chat-input-row">
+          <form className="chatbot-form" onSubmit={handleSubmit}>
             <input
               type="text"
-              placeholder="Ask me anything about fashion..."
+              placeholder="Type your message"
               value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              disabled={loading}
-              aria-label="Chat message"
+              onChange={(event) => setInput(event.target.value)}
+              disabled={sending}
+              maxLength={500}
             />
-            <button
-              className="send-btn"
-              onClick={() => sendMessage()}
-              disabled={loading || !input.trim()}
-              aria-label="Send message"
-            >
-              
+            <button type="submit" disabled={sending || !input.trim()}>
+              {sending ? '...' : 'Send'}
             </button>
-          </div>
-        </div>
+          </form>
+        </section>
       )}
 
-      {/* Toggle button */}
       <button
-        className="chat-toggle-btn"
-        onClick={isOpen ? () => setIsOpen(false) : openChat}
-        aria-label={isOpen ? "Close chat" : "Open shopping assistant"}
+        type="button"
+        className="chatbot-toggle"
+        onClick={toggleChat}
+        aria-label={isOpen ? 'Close booking chatbot' : 'Open booking chatbot'}
       >
-        {isOpen ? "" : ""}
+        {isOpen ? 'Close' : 'Chat'}
       </button>
     </div>
   );
-};
+}
 
 export default ChatbotWidget;
