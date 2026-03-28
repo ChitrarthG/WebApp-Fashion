@@ -6,8 +6,7 @@ services:
     region: oregon
     autoDeployTrigger: commit
     buildCommand: npm ci --prefix backend && npm ci --prefix frontend && npm run build --prefix frontend
-    preDeployCommand: npm --prefix backend run db:init
-    startCommand: npm --prefix backend start
+    startCommand: npm --prefix backend run start:render
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
